@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priority Optimization Protocol</title>
+    <style>
+        :root {
+            --primary: #2d3436;
+            --accent: #d63031;
+            --bg: #f9f9f9;
+        }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #funnel-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+        .step { display: none; }
+        .step.active { display: block; }
+        h2 { margin-top: 0; font-weight: 300; letter-spacing: 1px; }
+        p { color: #636e72; line-height: 1.6; }
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); background: #000; }
+        .option-btn {
+            background: white;
+            border: 1px solid #dfe6e9;
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+        }
+        .option-btn:hover { background: #f1f2f6; border-color: var(--primary); }
+        #loading { display: none; }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div id="funnel-container">
+    <div class="step active" id="step1">
+        <h2>Energy & Wellness Audit</h2>
+        <p>Based on your recent activity levels, you may be eligible for a specialized recovery protocol. Let's find out.</p>
+        <button class="btn" onclick="nextStep(2)">Begin Assessment</button>
+    </div>
+
+    <div class="step" id="step2">
+        <p>Question 1 of 3</p>
+        <h2>How would you rate your current stress levels?</h2>
+        <button class="option-btn" onclick="nextStep(3)">A) Manageable, but I'm ready for a break.</button>
+        <button class="option-btn" onclick="nextStep(3)">B) I've been thinking about a specific "funnel" all day.</button>
+        <button class="option-btn" onclick="nextStep(3)">C) Low, I'm just here for the perks.</button>
+    </div>
+
+    <div class="step" id="step3">
+        <p>Question 2 of 3</p>
+        <h2>What is your primary recovery goal this evening?</h2>
+        <button class="option-btn" onclick="nextStep(4)">A) Optimal horizontal alignment.</button>
+        <button class="option-btn" onclick="nextStep(4)">B) Quality time with the Lead Consultant.</button>
+        <button class="option-btn" onclick="nextStep(4)">C) Skipping the small talk and getting to the point.</button>
+    </div>
+
+    <div class="step" id="step4">
+        <p>Question 3 of 3</p>
+        <h2>Select your preferred environment:</h2>
+        <button class="option-btn" onclick="processResults()">A) High-thread count, low-stress zone.</button>
+        <button class="option-btn" onclick="processResults()">B) Within 5 feet of Nick at all times.</button>
+    </div>
+
+    <div class="step" id="loading">
+        <h2>Analyzing Data...</h2>
+        <p>Matching your profile with available inventory.</p>
+        <div class="loader"></div>
+    </div>
+
+    <div class="step" id="offer">
+        <h2 style="color: var(--accent);">Match Found!</h2>
+        <p>Our algorithm has identified a 99.9% compatibility match for your current needs.</p>
+        <div style="background: #f1f2f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="margin: 0;">Recommended Product:</h3>
+            <h1 style="margin: 10px 0;">Nick's Bed</h1>
+            <p><strong>Availability:</strong> Immediately</p>
+            <p><strong>Bonus:</strong> Includes complimentary cuddle-tier support.</p>
+        </div>
+        <button class="btn" onclick="alert('Order Confirmed. Please head to the master bedroom for fulfillment.')">CLAIM OFFER NOW</button>
+    </div>
+</div>
+
+<script>
+    function nextStep(stepNumber) {
+        document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+        document.getElementById('step' + stepNumber).classList.add('active');
+    }
+
+    function processResults() {
+        nextStep('loading');
+        setTimeout(() => {
+            nextStep('offer');
+        }, 2000); // 2-second fake loading time for dramatic effect
+    }
+</script>
+
+</body>
+</html>
